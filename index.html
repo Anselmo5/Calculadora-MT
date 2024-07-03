@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Regressão Linear e Correlação</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Regressão Linear e Correlação</h2>
+        <label for="x">Valores de X (separados por vírgula):</label><br>
+        <input type="text" id="x" placeholder="Ex: 1, 2, 3, 4, 5"><br>
+        <label for="y">Valores de Y (separados por vírgula):</label><br>
+        <input type="text" id="y" placeholder="Ex: 2, 3, 4, 5, 6"><br>
+        <label for="resultX">Valor de X:</label><br>
+        <input type="text" id="resultX" placeholder=""><br>
+        <label for="resultY">Valor de Y:</label><br>
+        <input type="text" id="resultY" placeholder=""><br>
+
+        <button onclick="calcular()">Calcular</button>
+        <div id="resultado">
+            <h3>Resultados</h3>
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                        <th>Valores de X</th>
+                        <th>Valores de Y</th>
+                        <th>Regressão Linear</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas da tabela serão adicionadas dinamicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            var xValues = document.getElementById('x').value.split(',').map(Number);
+            var yValues = document.getElementById('y').value.split(',').map(Number);
+            var resultX = parseFloat(document.getElementById('resultX').value);
+            var resultY = parseFloat(document.getElementById('resultY').value);
+        
+            // Verificar se os arrays têm o mesmo tamanho
+            if (xValues.length !== yValues.length) {
+                alert("Os arrays devem ter o mesmo tamanho.");
+                return;
+            }
+        
+            var n = xValues.length;
+            var x_mean = xValues.reduce((acc, val) => acc + val, 0) / n;
+            var y_mean = yValues.reduce((acc, val) => acc + val, 0) / n;
+            <!-- "trasformando os valores - ao quadrado e mutuplixação " -->
+            var numerador = xValues.reduce((acc, val, index) => acc + (val - x_mean) * (yValues[index] - y_mean), 0);
+            var denominador = xValues.reduce((acc, val) => acc + Math.pow(val - x_mean, 2), 0);
+        
+            var A = numerador / denominador;
+            var B= y_mean - beta1 * x_mean;
+        
+            var correlacao = numerador / (Math.sqrt(denominador) * Math.sqrt(yValues.reduce((acc, val, index) => acc + Math.pow(val - y_mean, 2), 0)));
+        
+            // Calcular os valores de X e Y preditos
+            var xPreditos = xValues.map(x => (beta0 + beta1 * x).toFixed(2));
+            var yPreditos = yValues.map(y => ((y - beta0) / beta1).toFixed(2));
+        
+            // Calcular os resultados específicos
+            var resultadox = (resultY - B) / A;
+            var resultadoy = A * resultX + B;
+        
+            // Montar a tabela de resultados
+            var tableBody = document.getElementById('resultTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Limpar tabela existente
+        
+            for (var i = 0; i < n; i++) {
+                var newRow = tableBody.insertRow();
+                newRow.insertCell().textContent = xValues[i];
+                newRow.insertCell().textContent = yValues[i];
+                newRow.insertCell().textContent = xPreditos[i] + ' / ' + yPreditos[i];
+            }
+        
+            // Adicionar os resultados de regressão e correlação abaixo da tabela
+            var resultadoHTML = `
+                <p>Coeficiente linear (beta0): ${B.toFixed(1)}</p>
+                <p>Coeficiente angular (beta1): ${A.toFixed(1)}</p>
+                <p>Coeficiente de correlação: ${correlacao.toFixed(1)}</p>
+                <p>Resultado de X: ${resultadox.toFixed(2)}</p>
+                <p>Resultado de Y: ${resultadoy.toFixed(2)}</p>
+            `;
+            document.getElementById('resultado').innerHTML = resultadoHTML;
+        }
+        
+    </script>
+</body>
+</html>
