@@ -12,7 +12,7 @@ document.getElementById('formulario').addEventListener('submit',function(event){
     const {A,B} = calculandoregrecao(X,Y) // o a e o b na programação por algum motivo e chamado de slope e intercept   que representa o coeficiente angular e coeficiente linear   
 
     const resulX = A * ResultX + B;  // Resultado de X - Coeficiente angular
-    const resultY = (ResultY - B) / A // Resultado de  Y Coeficiente linear
+    const resultY = (ResultY - B) / A // Resultado de  Y - Coeficiente linear
 
     // A forma que o reesultado vai aparecer no html. 
     // toFIxed() - seria a quantidade de numero apos uma vircula / arredondamento
@@ -44,8 +44,6 @@ function calculandoregrecao(X,Y){
     const B = (somaY * SomaX2 - somaX * somaXY) / (numerodeelementosXY * SomaX2 - somaX * somaX);
 
     return {A,B}
-
-
 }   
 
 
