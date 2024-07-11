@@ -6,13 +6,13 @@
     <title>Calculadora</title> <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div class="alingcontaine">
         <div class="container">
             <div class="form">
             <h2>Calculadora MT</h2>
             <p>Avalição de Matemaica</p>
 
-            <form id="formulario" class="alingContainer">
+            <form id="formulario" class="alingForm">
 
                     <div class="alingDados">
                             <label for="X"> Insira o valor X</label>
@@ -44,14 +44,16 @@
 
     
             </form>
-
-            <div id="resultado">
+            </div> 
+            
+            <div class="container2">
+                <div id="resultado">
                     <h2>Resultado do Calculo</h2>
                     <table>
                         <tr>
                             <th id="resultX">Valores de X</th>
                             <th id="resultY">Valores de Y</th>
-                            <th id="regrecao">Regreção Linear</th>
+                            <th id="regressao">Regressão Linear</th>
                         </tr>
 
                         <tbody>
@@ -59,8 +61,10 @@
                         </tbody>
                     </table>
             </div>
-            </div>            
+            </div>
         </div>
+
+    </div> 
         <script src="scripty.js"></script>
 </body>
 </html>

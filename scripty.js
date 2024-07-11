@@ -17,11 +17,10 @@ document.getElementById('formulario').addEventListener('submit',function(event){
     // A forma que o reesultado vai aparecer no html. 
     // toFIxed() - seria a quantidade de numero apos uma vircula / arredondamento
 
-    document.getElementById('regrecao').innerHTML = `Regreção linear : y = ${A.toFixed(1)} x + ${B.toFixed(1)}`;
+    document.getElementById('regressao').innerHTML = `Regreção linear : y = ${A.toFixed(1)} x + ${B.toFixed(1)}`;
     document.getElementById('resultX').innerHTML = `Resultado de X:  ${resulX.toFixed(2)}`;
     document.getElementById('resultY').innerHTML = `Resultado de Y : ${resultY.toFixed(2)}`;
     document.getElementById('resultado').style.display = 'block';
-
 });
 
 // numerodeelementosXY verifica a quantidade de 
@@ -32,7 +31,6 @@ function calculandoregrecao(X,Y){
     // essas são as variáveis para armazenar as somas que serão calculadas no loop do codigo
 
     // Loop Regreção
-
     for (let i = 0; i < numerodeelementosXY; i++){
         somaX += X[i]; // Soma todos os valores de X
         somaY += Y[i]; // Soma todos os valores de Y
@@ -42,6 +40,8 @@ function calculandoregrecao(X,Y){
 
     const A = (numerodeelementosXY * somaXY - somaX * somaY) / (numerodeelementosXY * SomaX2 - somaX * somaX);
     const B = (somaY * SomaX2 - somaX * somaXY) / (numerodeelementosXY * SomaX2 - somaX * somaX);
+    console.log(B)
+    console.log(A)
 
     return {A,B}
 }   
